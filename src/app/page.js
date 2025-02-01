@@ -14,14 +14,7 @@ const BlackHole = dynamic(() => import('src/components/BlackHole/BlackHole.jsx')
   ),
 });
 
-const Text = dynamic(() => import('src/components/Text/Text.jsx'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-screen flex items-center justify-center text-white">
-      Loading text...
-    </div>
-  ),
-});
+
 
 export default function Home() {
   return (
