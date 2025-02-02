@@ -11,14 +11,21 @@
   "dependencies": {
     "@react-three/drei": "^9.92.0",
     "@react-three/fiber": "^8.15.0",
+    "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/runtime": "^1.9.59",
+    "framer-motion": "^12.0.6",
     "lucide": "^0.474.0",
+    "lucide-react": "^0.474.0",
     "next": "14.0.0",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
+    "react-icons": "^5.4.0",
+    "react-scroll": "^1.9.0",
     "three": "^0.160.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/node": "22.13.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",

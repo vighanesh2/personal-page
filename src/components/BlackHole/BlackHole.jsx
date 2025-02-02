@@ -10,9 +10,9 @@ const BlackHole = () => {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
     const renderer = new THREE.WebGLRenderer({ 
       antialias: true,
-      alpha: false // Changed from true to false
+      alpha: false
     });
-    renderer.setClearColor(0x000000, 1); // Set background color to black
+    renderer.setClearColor(0x000000, 1);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     mountRef.current.appendChild(renderer.domElement);
@@ -77,18 +77,16 @@ const BlackHole = () => {
 
     // Shooting stars creation
     const createShootingStars = () => {
-      const starCount = 100; // Number of shooting stars
+      const starCount = 100;
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(starCount * 3);
-      const velocities = new Float32Array(starCount * 3); // Velocity for each star
+      const velocities = new Float32Array(starCount * 3);
 
       for (let i = 0; i < starCount; i++) {
-        // Random starting position
         positions[i * 3] = (Math.random() - 0.5) * 1000;
         positions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
         positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
 
-        // Random velocity (direction and speed)
         velocities[i * 3] = (Math.random() - 0.5) * 0.1;
         velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
         velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
@@ -138,7 +136,7 @@ const BlackHole = () => {
     blackHoleSystem.add(eventHorizon);
     blackHoleSystem.add(outline);
 
-    // Particle system setup (existing code)
+    // Particle system setup
     const colors = {
       innerWhite: new THREE.Color('#eae9dd'),
       lightBeige: new THREE.Color('#bfb9a7'),
@@ -208,12 +206,54 @@ const BlackHole = () => {
       };
     };
 
+    // Create infalling matter system
+    const createInfallingMatter = () => {
+      const particleCount = 1000;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const velocities = new Float32Array(particleCount * 3);
+      const accelerations = new Float32Array(particleCount);
+      const startRadii = new Float32Array(particleCount);
+      
+      // Initialize particles in a spiral pattern
+      for (let i = 0; i < particleCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = 8 + Math.random() * 4; // Start particles further out
+        positions[i * 3] = Math.cos(angle) * radius;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 2; // Slight vertical spread
+        positions[i * 3 + 2] = Math.sin(angle) * radius;
+        
+        startRadii[i] = radius;
+        accelerations[i] = 0.001 + Math.random() * 0.002;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      
+      const material = new THREE.PointsMaterial({
+        size: 0.05,
+        color: 0x88ccff,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+
+      const particles = new THREE.Points(geometry, material);
+      
+      return {
+        system: particles,
+        accelerations: accelerations,
+        startRadii: startRadii
+      };
+    };
+
     const diskParticles = createParticleSystem(200000, 3, 0);
     const verticalParticles = createParticleSystem(160000, 3, 0);
     verticalParticles.system.rotation.x = Math.PI / 2;
+    const infallingMatter = createInfallingMatter();
 
     blackHoleSystem.add(diskParticles.system);
     blackHoleSystem.add(verticalParticles.system);
+    blackHoleSystem.add(infallingMatter.system);
 
     // Ambient light
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -223,13 +263,35 @@ const BlackHole = () => {
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Animate starfield (move stars slowly)
       const starPositions = starfield.geometry.attributes.position.array;
       for (let i = 0; i < starPositions.length; i += 3) {
-        starPositions[i] += 0.01; // Move stars along the x-axis
-        starPositions[i + 1] += 0.005; // Move stars along the y-axis
-        starPositions[i + 2] += 0.002; // Move stars along the z-axis
-
+        // Basic movement
+        starPositions[i] += 0.01;
+        starPositions[i + 1] += 0.005;
+        starPositions[i + 2] += 0.002;
+      
+        // Calculate distance from black hole center
+        const x = starPositions[i];
+        const y = starPositions[i + 1];
+        const z = starPositions[i + 2];
+        const distance = Math.sqrt(x * x + y * y + z * z);
+      
+        // Apply enhanced gravitational lensing effect for stars near the black hole
+        if (distance < 30) {
+          const gravityFactor = Math.max(0.05, (distance - 2) / 28);
+          const angle = Math.atan2(z, x);
+          const orbitSpeed = 0.005 / gravityFactor;
+          const newAngle = angle + orbitSpeed;
+          const newRadius = distance * (1 - 0.003 / gravityFactor);
+          
+          starPositions[i] = newRadius * Math.cos(newAngle);
+          starPositions[i + 2] = newRadius * Math.sin(newAngle);
+          
+          if (distance < 15) {
+            starPositions[i + 1] *= 0.995;
+          }
+        }
+      
         // Reset stars that move out of bounds
         if (starPositions[i] > 500) starPositions[i] = -500;
         if (starPositions[i + 1] > 500) starPositions[i + 1] = -500;
@@ -237,24 +299,7 @@ const BlackHole = () => {
       }
       starfield.geometry.attributes.position.needsUpdate = true;
 
-      // Animate shooting stars
-      const positions = shootingStars.points.geometry.attributes.position.array;
-      const velocities = shootingStars.velocities;
-      for (let i = 0; i < positions.length; i += 3) {
-        positions[i] += velocities[i];
-        positions[i + 1] += velocities[i + 1];
-        positions[i + 2] += velocities[i + 2];
-
-        // Reset position if star goes out of bounds
-        if (Math.abs(positions[i]) > 500 || Math.abs(positions[i + 1]) > 500 || Math.abs(positions[i + 2]) > 500) {
-          positions[i] = (Math.random() - 0.5) * 1000;
-          positions[i + 1] = (Math.random() - 0.5) * 1000;
-          positions[i + 2] = (Math.random() - 0.5) * 1000;
-        }
-      }
-      shootingStars.points.geometry.attributes.position.needsUpdate = true;
-
-      // Animate black hole particles (existing code)
+      // Animate black hole particles
       [diskParticles, verticalParticles].forEach(particleSystem => {
         const positions = particleSystem.geometry.attributes.position.array;
         for (let i = 0; i < positions.length; i += 3) {
@@ -267,6 +312,39 @@ const BlackHole = () => {
         }
         particleSystem.geometry.attributes.position.needsUpdate = true;
       });
+
+      // Animate infalling matter
+      const infallingPositions = infallingMatter.system.geometry.attributes.position.array;
+      for (let i = 0; i < infallingPositions.length; i += 3) {
+        const x = infallingPositions[i];
+        const y = infallingPositions[i + 1];
+        const z = infallingPositions[i + 2];
+        
+        const radius = Math.sqrt(x * x + z * z);
+        const angle = Math.atan2(z, x);
+        
+        const particleIndex = Math.floor(i / 3);
+        const acceleration = infallingMatter.accelerations[particleIndex];
+        
+        if (radius > 2.2) {
+          const newRadius = radius - (acceleration * (8 / radius));
+          const angularSpeed = 0.02 * (8 / radius);
+          
+          infallingPositions[i] = Math.cos(angle + angularSpeed) * newRadius;
+          infallingPositions[i + 1] *= 0.99;
+          infallingPositions[i + 2] = Math.sin(angle + angularSpeed) * newRadius;
+          
+          const opacity = Math.min(1, (radius - 2.2) / 3);
+          infallingMatter.system.material.opacity = opacity;
+        } else {
+          const startRadius = infallingMatter.startRadii[particleIndex];
+          const newAngle = Math.random() * Math.PI * 2;
+          infallingPositions[i] = Math.cos(newAngle) * startRadius;
+          infallingPositions[i + 1] = (Math.random() - 0.5) * 2;
+          infallingPositions[i + 2] = Math.sin(newAngle) * startRadius;
+        }
+      }
+      infallingMatter.system.geometry.attributes.position.needsUpdate = true;
 
       controls.update();
       renderer.render(scene, camera);
