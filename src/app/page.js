@@ -2,12 +2,13 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Navigation from 'src/components/Navigation/Navigation.jsx';
-import FooterText from 'src/components/FooterText/FooterText.jsx';
-import SocialLinks from 'src/components/SocialLinks/SocialLinks.jsx';
-import Logo from 'src/components/Logo/Logo.jsx'; // Import the new Logo component
+import FooterText from '@/components/FooterText/FooterText.jsx';
+import Navigation from '@/components/Navigation/Navigation.jsx';
 
-const BlackHole = dynamic(() => import('src/components/BlackHole/BlackHole.jsx'), {
+import SocialLinks from '@/components/SocialLinks/SocialLinks.jsx';
+import Logo from '@/components/Logo/Logo.jsx'; // Import the new Logo component
+
+const BlackHole = dynamic(() => import('@/components/BlackHole/BlackHole.jsx'), {
   ssr: false,
   loading: () => (
     <div className="w-full h-screen flex items-center justify-center text-white">

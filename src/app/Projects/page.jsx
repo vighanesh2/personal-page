@@ -2,9 +2,9 @@
 import { Bebas_Neue } from 'next/font/google';
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import Navigation from "src/components/Navigation/Navigation.jsx";
-import SocialLinks from "src/components/SocialLinks/SocialLinks.jsx";
-import Logo from 'src/components/Logo/Logo.jsx';
+import Navigation from "@/components/Navigation/Navigation.jsx";
+import SocialLinks from "@/components/SocialLinks/SocialLinks.jsx";
+import Logo from '@/components/Logo/Logo.jsx';
 import * as THREE from "three";
 
 const bebasNeue = Bebas_Neue({
