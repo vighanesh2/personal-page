@@ -46,7 +46,7 @@ const Navigation = () => {
     { path: '/', label: 'Home', style: linkStyle },
     { path: '/Projects', label: 'Projects', style: linkStyle },
     { path: '/Experience', label: 'Experience', style: linkStyle },
-    { path: '/events', label: 'Events', style: linkStyle },
+    { path: '/Events', label: 'Events', style: linkStyle },
     { path: '/featured', label: 'Featured', style: linkStyle },
   ];
 

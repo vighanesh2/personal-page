@@ -23,15 +23,15 @@ export default function ProjectsPage() {
       title: "Projects",
       subtitle: "Developed personal website using ThreeJs",
       image: "/project1.png",
-      link: "https://project1.com"
+      link: "https://github.com/vighanesh2/personal-page"
     },
     {
       id: 2,
       number: "02",
       title: "Projects",
-      subtitle: "Innovative Solutions for Modern Challenges",
+      subtitle: "Trailers Streaming Service",
       image: "/project2.png",
-      link: "https://project2.com"
+      link: "https://github.com/vighanesh2/MovieStreaming"
     },
     {
       id: 3,
@@ -39,7 +39,7 @@ export default function ProjectsPage() {
       title: "Projects",
       subtitle: "Education app for sharing notes, homeworks, and more",
       image: "/project3.png",
-      link: "https://project3.com"
+      link: "https://github.com/vighanesh2/TurnitUP_SBUHacks"
     },
     {
       id: 4,
@@ -47,7 +47,7 @@ export default function ProjectsPage() {
       title: "Projects",
       subtitle: "Education app for students with learning disabilities",
       image: "/project4.png",
-      link: "https://project3.com"
+      link: "https://github.com/vighanesh2/BeLeaf"
     },
     {
       id: 5,
@@ -55,7 +55,7 @@ export default function ProjectsPage() {
       title: "Projects",
       subtitle: "Web Design and Devlopment",
       image: "/project5.png",
-      link: "https://project3.com"
+      link: "https://github.com/vighanesh2/Candles-React"
     },
     {
       id: 6,
@@ -63,7 +63,15 @@ export default function ProjectsPage() {
       title: "Projects",
       subtitle: "Location Sharing App",
       image: "/project6.png",
-      link: "https://project3.com"
+      link: "https://github.com/vighanesh2/MyPlace"
+    },
+    {
+      id: 7,
+      number: "07",
+      title: "Projects",
+      subtitle: "Medidation app",
+      image: "/project7.png",
+      link: "https://github.com/vighanesh2/Inhale-Breathing-App"
     }
   ];
 

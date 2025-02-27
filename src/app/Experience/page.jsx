@@ -17,29 +17,38 @@ const experiences = [
   {
     id: 1,
     number: "01",
-    title: "Senior Software Engineer",
-    company: "Tech Innovation Labs",
-    period: "2021 - Present",
-    description: "Leading full-stack development of enterprise applications, managing a team of 5 developers, and implementing microservices architecture.",
-    skills: ["React", "Node.js", "AWS", "Microservices", "Team Leadership"]
+    title: "Software Engineer Intern",
+    company: "StudyFetch",
+    period: "Nov 2024 - Present",
+    description: "Developed a TikTok and Instagram social media tracker with magic link authentication and MongoDB database schema, boosting engagement through trend analysis while ensuring robust user security and optimized data flow. Built an interactive diagram generator using Rough.js that supports 45+ customizable diagrams, enabling users to create and modify professional visualizations for their specific needs.",
+    skills: ["React", "Next.js", "MongoDB", "Prisma", "TypeScript"]
   },
   {
     id: 2,
     number: "02",
-    title: "Full Stack Developer",
-    company: "Digital Solutions Inc",
-    period: "2019 - 2021",
-    description: "Developed scalable web applications, improved system performance by 40%, and implemented CI/CD pipelines.",
-    skills: ["JavaScript", "Python", "Docker", "MongoDB", "DevOps"]
+    title: "Supplemental Instructor & Peer tutor",
+    company: "New York Institute of Technology",
+    period: "Sep 2022 – Nov 2024",
+    description: "Provided one-on-one tutoring and code debugging assistance to 30+ students in computer science courses, resulting in an average 15% improvement in student grades semester-over-semester. Achieved a 98% issue resolution rate in quality assurance testing for student assignments and projects, ensuring adherence to design specifications and enhancing overall course effectiveness.",
+    skills: ["Java", "Teaching", "Leadership","Tutor", "Communication"]
   },
   {
     id: 3,
     number: "03",
-    title: "Frontend Developer",
-    company: "Creative Web Agency",
+    title: "Undergraduate Research and Entrepreneurship Program (UREP)",
+    company: "New York Institute of Technology",
     period: "2017 - 2019",
-    description: "Created responsive web interfaces, collaborated with designers, and optimized web performance.",
-    skills: ["HTML/CSS", "React", "UI/UX", "Performance Optimization"]
+    description: "Conducted comprehensive literature reviews, developed a Python program utilizing the Roberta model for detecting AI content in creative writing, and presented findings to industry experts to highlight problems and provide probable solutions. Spearheaded a case study with college professors, identifying challenges in AI content detection. Achieved a 30% reduction in data processing time through innovative strategies, securing a $500 research grant and advancing towards detecting AI texts.",
+    skills: ["Research", "Python", "LLMS", "Leader"]
+  },
+  {
+    id: 4,
+    number: "04",
+    title: "Front-End Developer Intern",
+    company: "Radiant Global Fund",
+    period: "May 2023 – Aug 2023",
+    description: "Developed and optimized over 10 responsive websites using React and Node.js, enhancing user engagement by 30% while implementing Wix for web design, domain connection, and hosting, alongside utilizing Velo by Wix for animations that showcased financial growth. Continuously updated the articles page, integrating Trading View widgets and an economic calendar, and fetching news from Reuters via RSS feeds, resulting in a 25% increase in content interaction among users.",
+    skills: ["React", "Node.js", "Wix", "Figma"]
   }
 ];
 
