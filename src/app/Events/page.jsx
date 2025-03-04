@@ -22,36 +22,20 @@ const events = [
     messageCount: "Message 1/23",
     thumbnail: "./HackNYU",
     description: "My journey of NYU hackathon",
-    duration: "4:21"
+    duration: "4:21",
+    youtubeId: "g65Km91bWdQ?si=iypUX_PSiuPxl7bL" // Replace with your actual YouTube video ID
   },
-  {
-    id: 2,
-    title: "AI Hackathon Journey",
-    date: "2023-11-30",
-    timestamp: "T+1Y 204D 6H",
-    messageCount: "Message 2/23",
-    thumbnail: "/api/placeholder/400/300",
-    description: "48-hour hackathon vlog - Building AI solutions",
-    duration: "12:15"
-  },
-  {
-    id: 3,
-    title: "Workshop: React Advanced",
-    date: "2023-12-20",
-    timestamp: "T+1Y 224D 9H",
-    messageCount: "Message 3/23",
-    thumbnail: "/api/placeholder/400/300",
-    description: "Advanced React patterns and performance optimization",
-    duration: "24:18"
-  }
+ 
 ];
 
 export default function EventsPage() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isTvOn, setIsTvOn] = useState(false);
   const [interference, setInterference] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const canvasRef = useRef(null);
   const interferenceTimeout = useRef(null);
+  const youtubePlayerRef = useRef(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -109,13 +93,83 @@ export default function EventsPage() {
     };
   }, []);
 
+  // Load YouTube API
+  useEffect(() => {
+    // Load the YouTube iframe API
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Define the onYouTubeIframeAPIReady function
+    window.onYouTubeIframeAPIReady = () => {
+      // YouTube API is ready
+      console.log('YouTube API Ready');
+    };
+
+    return () => {
+      // Cleanup if needed
+      window.onYouTubeIframeAPIReady = null;
+    };
+  }, []);
+
+  // Initialize or update YouTube player when selectedEvent changes
+  useEffect(() => {
+    if (selectedEvent && isTvOn) {
+      if (window.YT && window.YT.Player) {
+        // Destroy existing player if it exists
+        if (youtubePlayerRef.current) {
+          youtubePlayerRef.current.destroy();
+        }
+
+        // Create new player
+        youtubePlayerRef.current = new window.YT.Player('youtube-player', {
+          videoId: selectedEvent.youtubeId,
+          playerVars: {
+            autoplay: 1,
+            controls: 1,
+            modestbranding: 1,
+            rel: 0,
+            showinfo: 0
+          },
+          events: {
+            onReady: (event) => {
+              setIsVideoPlaying(true);
+              // You can control the player here if needed
+              // event.target.playVideo();
+            },
+            onStateChange: (event) => {
+              // You can respond to player state changes here
+              setIsVideoPlaying(event.data === window.YT.PlayerState.PLAYING);
+            }
+          }
+        });
+      }
+    }
+
+    return () => {
+      // Clean up player on unmount or when selectedEvent changes
+      if (youtubePlayerRef.current) {
+        youtubePlayerRef.current.destroy();
+        youtubePlayerRef.current = null;
+      }
+    };
+  }, [selectedEvent, isTvOn]);
+
   const handleEventSelect = (event) => {
     setIsTvOn(false);
     setInterference(true);
+    setIsVideoPlaying(false);
     
     // Clear any existing timeout
     if (interferenceTimeout.current) {
       clearTimeout(interferenceTimeout.current);
+    }
+
+    // Destroy current YouTube player if exists
+    if (youtubePlayerRef.current) {
+      youtubePlayerRef.current.destroy();
+      youtubePlayerRef.current = null;
     }
 
     // Simulate digital interference effect
@@ -128,6 +182,14 @@ export default function EventsPage() {
 
   const turnOffTV = () => {
     setInterference(true);
+    setIsVideoPlaying(false);
+    
+    // Destroy YouTube player
+    if (youtubePlayerRef.current) {
+      youtubePlayerRef.current.destroy();
+      youtubePlayerRef.current = null;
+    }
+    
     setTimeout(() => {
       setIsTvOn(false);
       setInterference(false);
@@ -233,17 +295,26 @@ export default function EventsPage() {
       background: 'rgba(0,0,0,0.7)',
       fontFamily: 'monospace',
       fontSize: '14px',
-      color: '#00ff00'
+      color: '#00ff00',
+      zIndex: 3
     },
-    tvImage: {
+    youtubeContainer: {
       width: '100%',
-      height: '70%',
-      objectFit: 'cover'
+      height: '100%',
+      position: 'relative'
+    },
+    youtubePlayer: {
+      width: '100%',
+      height: '100%',
+      border: 'none'
     },
     tvInfo: {
       padding: '20px',
       width: '100%',
-      background: 'rgba(0,0,0,0.8)'
+      background: 'rgba(0,0,0,0.8)',
+      position: 'absolute',
+      bottom: '0',
+      zIndex: 2
     },
     tvInfoHeader: {
       display: 'flex',
@@ -362,7 +433,7 @@ export default function EventsPage() {
       <Navigation />
       
       <div style={styles.contentContainer}>
-        <h1 style={styles.title}>Temporal Archives</h1>
+        <h1 style={styles.title}>Vlogs</h1>
         
         {/* Retro TV */}
         <div style={styles.tvContainer}>
@@ -381,11 +452,10 @@ export default function EventsPage() {
                       <span>{selectedEvent.timestamp}</span>
                       <span>{selectedEvent.messageCount}</span>
                     </div>
-                    <img 
-                      src={selectedEvent.thumbnail} 
-                      alt={selectedEvent.title}
-                      style={styles.tvImage}
-                    />
+                    <div style={styles.youtubeContainer}>
+                      {/* YouTube player will be loaded here */}
+                      <div id="youtube-player"></div>
+                    </div>
                     <div style={styles.tvInfo}>
                       <div style={styles.tvInfoHeader}>
                         <h3 style={styles.tvTitle}>{selectedEvent.title}</h3>
@@ -404,11 +474,7 @@ export default function EventsPage() {
                 <button 
                   style={{
                     ...styles.powerButton,
-                    background: isTvOn ? '#1a1a1a' : '#1a1a1a',
-                    ':hover': {
-                      background: '#00ff00',
-                      color: '#000'
-                    }
+                    background: isTvOn ? '#1a1a1a' : '#1a1a1a'
                   }}
                   onClick={isTvOn ? turnOffTV : () => setIsTvOn(true)}
                 >
@@ -536,6 +602,17 @@ export default function EventsPage() {
 
         ::-webkit-scrollbar-thumb:hover {
           background: rgba(255, 255, 255, 0.5);
+        }
+        
+        /* Make YouTube iframe take full space of its container */
+        #youtube-player {
+          width: 100%;
+          height: 100%;
+        }
+        
+        /* Hide YouTube iframe before it loads */
+        iframe {
+          border: none;
         }
       `}</style>
     </div>

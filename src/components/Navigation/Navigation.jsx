@@ -47,7 +47,7 @@ const Navigation = () => {
     { path: '/Projects', label: 'Projects', style: linkStyle },
     { path: '/Experience', label: 'Experience', style: linkStyle },
     { path: '/Events', label: 'Events', style: linkStyle },
-    { path: '/featured', label: 'Featured', style: linkStyle },
+    { path: '/Featured', label: 'Featured', style: linkStyle },
   ];
 
   return (

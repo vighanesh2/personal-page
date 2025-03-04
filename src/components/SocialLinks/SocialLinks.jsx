@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from 'react-icons/fa'; // Import icons from react-icons
+import { FaGithub, FaLinkedin, FaYoutube, FaEnvelope } from 'react-icons/fa'; // Import icons from react-icons
 
 const SocialLinks = () => {
   const socialStyle = {
@@ -29,7 +29,7 @@ const SocialLinks = () => {
   return (
     <div style={socialStyle}>
       <a
-        href="https://github.com/yourusername"
+        href="https://github.com/vighanesh2"
         target="_blank"
         rel="noopener noreferrer"
         style={iconStyle}
@@ -39,7 +39,7 @@ const SocialLinks = () => {
         <FaGithub />
       </a>
       <a
-        href="https://linkedin.com/in/yourusername"
+        href="https://www.linkedin.com/in/vgaund/"
         target="_blank"
         rel="noopener noreferrer"
         style={iconStyle}
@@ -49,17 +49,17 @@ const SocialLinks = () => {
         <FaLinkedin />
       </a>
       <a
-        href="https://twitter.com/yourusername"
+        href="https://www.youtube.com/@vigigaming979"
         target="_blank"
         rel="noopener noreferrer"
         style={iconStyle}
         onMouseOver={(e) => (e.currentTarget.style.color = hoverStyle.color)}
         onMouseOut={(e) => (e.currentTarget.style.color = iconStyle.color)}
       >
-        <FaTwitter />
+        <FaYoutube />
       </a>
       <a
-        href="mailto:youremail@example.com"
+        href="mailto:vighanesh2@gmail.com"
         style={iconStyle}
         onMouseOver={(e) => (e.currentTarget.style.color = hoverStyle.color)}
         onMouseOut={(e) => (e.currentTarget.style.color = iconStyle.color)}
