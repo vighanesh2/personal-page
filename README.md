@@ -40,56 +40,10 @@ This repository contains the source code for my personal portfolio website with 
 - **ProjectsPage.jsx**: Showcase of personal and professional projects
 - **FeaturedPage.jsx**: Publications and features section
 
-## 📋 Project Structure
-
-```
-/components
-  /Logo
-  /Navigation
-  /SocialLinks
-  /ThreeBackground
-  /BlackHole
-/pages
-  _app.js
-  index.js
-  experience.js
-  projects.js
-  featured.js
-  events.js
-/public
-  /* Project images and assets */
-```
-
-## 🚀 Getting Started
-
 ### Prerequisites
 
-- Node.js (v16+)
+- Next.js 
 - npm or yarn
-
-### Installation
-
-1. Clone this repository
-```bash
-git clone https://github.com/yourusername/stellar-portfolio.git
-cd stellar-portfolio
-```
-
-2. Install dependencies
-```bash
-npm install
-# or
-yarn install
-```
-
-3. Run the development server
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
 ## 📱 Deployment
 
@@ -118,16 +72,9 @@ If you experience performance issues:
 - Adjust the rendering quality in the Three.js components
 - Ensure your browser supports WebGL
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🙏 Acknowledgements
 
 - Three.js community for examples and inspiration
 - Next.js documentation
 - Space imagery that inspired the visual effects
 
----
-
-Created with ❤️ by [Your Name]
