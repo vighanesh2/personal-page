@@ -1,6 +1,6 @@
 # Stellar Portfolio | Space-Themed Personal Website
 
-![Space-themed Portfolio](https://via.placeholder.com/800x400?text=Space-Themed+Portfolio)
+<img width="1725" alt="Screenshot 2025-03-04 at 4 31 17 PM" src="https://github.com/user-attachments/assets/85fed644-0cec-4005-98bd-e0e11d3eb8ee" />
 
 ## 🌌 Overview
 
@@ -24,7 +24,7 @@ This repository contains the source code for my personal portfolio website with 
   - Adapts to different screen sizes
   - Maintains visual quality across devices
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **React/Next.js**: Frontend framework for efficient rendering and routing
 - **Three.js**: 3D graphics library for immersive visual effects
