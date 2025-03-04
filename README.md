@@ -1,36 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Stellar Portfolio | Space-Themed Personal Website
 
-## Getting Started
+![Space-themed Portfolio](https://via.placeholder.com/800x400?text=Space-Themed+Portfolio)
 
-First, run the development server:
+## 🌌 Overview
 
+This repository contains the source code for my personal portfolio website with an immersive, space-themed design. The site features stunning visual effects powered by Three.js, including a realistic black hole simulation, interactive star fields, and dynamic nebula effects.
+
+## ✨ Features
+
+- **Immersive Space Visuals**: Custom Three.js animations including:
+  - Realistic black hole with accretion disk and gravitational lensing
+  - Dynamic starfield backgrounds with parallax effects
+  - Nebula effects with custom shaders
+  - Shooting stars and particle systems
+
+- **Interactive UI Elements**:
+  - Retro TV-style video player for vlogs
+  - Interactive project carousel
+  - Experience timeline with smooth transitions
+  - Featured publications section
+
+- **Responsive Design**:
+  - Adapts to different screen sizes
+  - Maintains visual quality across devices
+
+## 🚀 Tech Stack
+
+- **React/Next.js**: Frontend framework for efficient rendering and routing
+- **Three.js**: 3D graphics library for immersive visual effects
+- **JavaScript/ES6+**: Core programming language
+- **CSS-in-JS**: Styling approach for component-based design
+
+## 🛠️ Main Components
+
+- **BlackHole.jsx**: Realistic black hole simulation with gravitational effects
+- **ThreeBackground.jsx**: Advanced star background with nebula effects
+- **EventsPage.jsx**: Retro TV-style video player for showcasing vlogs
+- **ExperiencePage.jsx**: Interactive timeline of professional experiences
+- **ProjectsPage.jsx**: Showcase of personal and professional projects
+- **FeaturedPage.jsx**: Publications and features section
+
+## 📋 Project Structure
+
+```
+/components
+  /Logo
+  /Navigation
+  /SocialLinks
+  /ThreeBackground
+  /BlackHole
+/pages
+  _app.js
+  index.js
+  experience.js
+  projects.js
+  featured.js
+  events.js
+/public
+  /* Project images and assets */
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16+)
+- npm or yarn
+
+### Installation
+
+1. Clone this repository
+```bash
+git clone https://github.com/yourusername/stellar-portfolio.git
+cd stellar-portfolio
+```
+
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📱 Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This website can be easily deployed using Vercel:
 
-## Learn More
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fstellar-portfolio)
 
-To learn more about Next.js, take a look at the following resources:
+## 🧪 Performance Optimizations
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Lazy loading for heavy Three.js components
+- Optimized particle systems for smooth animations
+- Efficient canvas rendering
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🎨 Customization
 
-## Deploy on Vercel
+You can easily customize the website:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Update the project data in the respective page files
+2. Modify the space themes and colors in the style objects
+3. Add or remove sections as needed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🔧 Troubleshooting
+
+If you experience performance issues:
+- Reduce the number of particles in the space effects
+- Adjust the rendering quality in the Three.js components
+- Ensure your browser supports WebGL
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- Three.js community for examples and inspiration
+- Next.js documentation
+- Space imagery that inspired the visual effects
+
+---
+
+Created with ❤️ by [Your Name]
