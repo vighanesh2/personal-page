@@ -14,7 +14,8 @@ const BlackHole = () => {
     });
     renderer.setClearColor(0x000000, 1);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Lower pixel ratio for performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.2));
     mountRef.current.appendChild(renderer.domElement);
 
     // Camera setup
@@ -33,7 +34,8 @@ const BlackHole = () => {
 
     // Starfield creation
     const createStarfield = () => {
-      const starCount = 15000;
+      // Lowered star count for performance
+      const starCount = 1500; // was 15000
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(starCount * 3);
       const colors = new Float32Array(starCount * 3);
@@ -77,7 +79,8 @@ const BlackHole = () => {
 
     // Shooting stars creation
     const createShootingStars = () => {
-      const starCount = 100;
+      // Lowered shooting star count for performance
+      const starCount = 10; // was 100
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(starCount * 3);
       const velocities = new Float32Array(starCount * 3);
@@ -87,9 +90,10 @@ const BlackHole = () => {
         positions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
         positions[i * 3 + 2] = (Math.random() - 0.5) * 1000;
 
-        velocities[i * 3] = (Math.random() - 0.5) * 0.1;
-        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
-        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
+        // Slower velocities
+        velocities[i * 3] = (Math.random() - 0.5) * 0.03; // was 0.1
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.03;
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.03;
       }
 
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -119,12 +123,14 @@ const BlackHole = () => {
     blackHoleSystem.rotation.z = Math.PI * 0.05;
 
     const eventHorizon = new THREE.Mesh(
-      new THREE.SphereGeometry(2, 64, 64),
+      // Lowered segments for performance
+      new THREE.SphereGeometry(2, 24, 24), // was 64, 64
       new THREE.MeshBasicMaterial({ color: 0x000000 })
     );
     
     const outline = new THREE.Mesh(
-      new THREE.RingGeometry(2, 2.15, 64),
+      // Lowered segments for performance
+      new THREE.RingGeometry(2, 2.15, 24), // was 64
       new THREE.MeshBasicMaterial({ 
         color: 0xffffff,
         transparent: true,
@@ -178,7 +184,8 @@ const BlackHole = () => {
         positions[i * 3] = Math.cos(angle) * r;
         positions[i * 3 + 1] = height;
         positions[i * 3 + 2] = Math.sin(angle) * r;
-        speeds[i] = Math.random() * 0.01 + 0.005;
+        // Slower speeds
+        speeds[i] = Math.random() * 0.003 + 0.001; // was 0.01 + 0.005
 
         const distanceFromCenter = Math.abs(r - 2) / 2;
         const color = getColorForDistance(distanceFromCenter);
@@ -208,7 +215,8 @@ const BlackHole = () => {
 
     // Create infalling matter system
     const createInfallingMatter = () => {
-      const particleCount = 1000;
+      // Lowered particle count for performance
+      const particleCount = 100; // was 1000
       const geometry = new THREE.BufferGeometry();
       const positions = new Float32Array(particleCount * 3);
       const velocities = new Float32Array(particleCount * 3);
@@ -224,7 +232,8 @@ const BlackHole = () => {
         positions[i * 3 + 2] = Math.sin(angle) * radius;
         
         startRadii[i] = radius;
-        accelerations[i] = 0.001 + Math.random() * 0.002;
+        // Slower acceleration
+        accelerations[i] = 0.0003 + Math.random() * 0.0007; // was 0.001 + 0.002
       }
 
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -246,8 +255,9 @@ const BlackHole = () => {
       };
     };
 
-    const diskParticles = createParticleSystem(200000, 3, 0);
-    const verticalParticles = createParticleSystem(160000, 3, 0);
+    // Lowered particle counts for performance
+    const diskParticles = createParticleSystem(2000, 3, 0); // was 200000
+    const verticalParticles = createParticleSystem(1600, 3, 0); // was 160000
     verticalParticles.system.rotation.x = Math.PI / 2;
     const infallingMatter = createInfallingMatter();
 
@@ -266,9 +276,9 @@ const BlackHole = () => {
       const starPositions = starfield.geometry.attributes.position.array;
       for (let i = 0; i < starPositions.length; i += 3) {
         // Basic movement
-        starPositions[i] += 0.01;
-        starPositions[i + 1] += 0.005;
-        starPositions[i + 2] += 0.002;
+        starPositions[i] += 0.003; // was 0.01
+        starPositions[i + 1] += 0.0015; // was 0.005
+        starPositions[i + 2] += 0.0007; // was 0.002
       
         // Calculate distance from black hole center
         const x = starPositions[i];
@@ -305,6 +315,7 @@ const BlackHole = () => {
         for (let i = 0; i < positions.length; i += 3) {
           const x = positions[i];
           const z = positions[i + 2];
+          // Slower rotation
           const angle = Math.atan2(z, x) + particleSystem.speeds[i / 3];
           const radius = Math.sqrt(x * x + z * z);
           positions[i] = Math.cos(angle) * radius;
@@ -327,8 +338,9 @@ const BlackHole = () => {
         const acceleration = infallingMatter.accelerations[particleIndex];
         
         if (radius > 2.2) {
-          const newRadius = radius - (acceleration * (8 / radius));
-          const angularSpeed = 0.02 * (8 / radius);
+          // Slower infall and rotation
+          const newRadius = radius - (acceleration * (2.5 / radius)); // was 8
+          const angularSpeed = 0.006 * (2.5 / radius); // was 0.02 * 8
           
           infallingPositions[i] = Math.cos(angle + angularSpeed) * newRadius;
           infallingPositions[i + 1] *= 0.99;

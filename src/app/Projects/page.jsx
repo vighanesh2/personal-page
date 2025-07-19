@@ -18,8 +18,16 @@ export default function ProjectsPage() {
   // Project data array with links
   const projects = [
     {
-      id: 1,
+      id: 0,
       number: "01",
+      title: "Projects",
+      subtitle: "Make decisions using historical data",
+      image: "/project0.png", // You can change this to your image path
+      link: "https://github.com/vighanesh2/market-analysis" // Change to your repo link
+    },
+    {
+      id: 1,
+      number: "02",
       title: "Projects",
       subtitle: "Developed personal website using ThreeJs",
       image: "/project1.png",
@@ -27,7 +35,7 @@ export default function ProjectsPage() {
     },
     {
       id: 2,
-      number: "02",
+      number: "03",
       title: "Projects",
       subtitle: "Trailers Streaming Service",
       image: "/project2.png",
@@ -35,7 +43,7 @@ export default function ProjectsPage() {
     },
     {
       id: 3,
-      number: "03",
+      number: "04",
       title: "Projects",
       subtitle: "Education app for sharing notes, homeworks, and more",
       image: "/project3.png",
@@ -43,7 +51,7 @@ export default function ProjectsPage() {
     },
     {
       id: 4,
-      number: "04",
+      number: "05",
       title: "Projects",
       subtitle: "Education app for students with learning disabilities",
       image: "/project4.png",
@@ -51,7 +59,7 @@ export default function ProjectsPage() {
     },
     {
       id: 5,
-      number: "05",
+      number: "06",
       title: "Projects",
       subtitle: "Web Design and Devlopment",
       image: "/project5.png",
@@ -59,7 +67,7 @@ export default function ProjectsPage() {
     },
     {
       id: 6,
-      number: "06",
+      number: "07",
       title: "Projects",
       subtitle: "Location Sharing App",
       image: "/project6.png",
@@ -67,7 +75,7 @@ export default function ProjectsPage() {
     },
     {
       id: 7,
-      number: "07",
+      number: "08",
       title: "Projects",
       subtitle: "Medidation app",
       image: "/project7.png",
